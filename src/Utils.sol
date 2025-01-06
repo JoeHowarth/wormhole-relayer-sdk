@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Apache 2
 pragma solidity ^0.8.4;
 
-import { WORD_SIZE, SCRATCH_SPACE_PTR, FREE_MEMORY_PTR } from "./constants/Common.sol";
+import {WORD_SIZE, SCRATCH_SPACE_PTR, FREE_MEMORY_PTR} from "./constants/Common.sol";
 
 error NotAnEvmAddress(bytes32);
 
@@ -18,6 +18,10 @@ function fromUniversalAddress(bytes32 universalAddr) pure returns (address addr)
     addr := universalAddr
   }
 }
+
+function minSigsForQuorum(uint numGuardians) pure returns (uint) { unchecked {
+  return numGuardians * 2 / 3 + 1;
+}}
 
 /**
  * Reverts with a given buffer data.
